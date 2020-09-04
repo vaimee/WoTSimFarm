@@ -1,0 +1,40 @@
+{
+    "@context": "https://www.w3.org/2019/wot/td/v1",
+    "title": "SoilSensor",
+    "description": "A soil sensor",
+    "securityDefinitions": {
+        "no_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "security": [
+        "no_sc"
+    ],
+    "properties": {
+        "temperature": {
+            "description": "Soil Temperature",
+            "type": "number",
+            "unit": "Celsius",
+            "readOnly": true,
+            "forms": []
+        },
+        "moisture": {
+            "description": "Soil water content in %",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "readOnly": true,
+            "forms": []
+        }
+    },
+    "events": {
+        "tooDry": {
+            "description": "Informs if the soil is too try",
+            "data": {
+                "type": "number",
+                "unit": "Celsius"
+            },
+            "forms": []
+        }
+    }
+}

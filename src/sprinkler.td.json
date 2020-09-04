@@ -1,0 +1,37 @@
+{
+    "@context": [
+        "https://www.w3.org/2019/wot/td/v1"
+    ],
+    "@type": [
+        "Thing"
+    ],
+    "title": "Sprinkler",
+    "securityDefinitions": {
+        "no_sec": {
+            "scheme": "nosec"
+        }
+    },
+    "links": [],
+    "security": "no_sec",
+    "actions": {
+        "startSprinkler": {
+            "description": "Run sprinkler for a set time; stops automatically",
+            "input": {
+                "type": "object",
+                "properties": {
+                    "timeout": {
+                        "type": "number",
+                        "minimum": 1
+                    }
+                }
+            },
+            "forms":[]
+        },
+        "stopSprinkler": {
+            "description": "stop sprinkler immediately",
+            "forms":[]
+        }
+    },
+    "properties": {},
+    "events": {}
+}

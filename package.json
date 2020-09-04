@@ -1,0 +1,27 @@
+{
+  "name": "WoTSimFarm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "thing.js",
+  "scripts": {
+    "build": "wam build --typescript ./src/farm.ts ./dist/bundle.js",
+    "debug": "wot-servient --inspect-brk -f servient.config.json ./dist/bundle.js",
+    "start": "wot-servient -f servient.config.json ./dist/bundle.js"
+  },
+  "keywords": [
+    ""
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@arces-wot/wam": "^0.5.1",
+    "@node-wot/cli": "^0.7.0",
+    "@rollup/plugin-typescript": "^2.0.1",
+    "@types/uuid": "^8.3.0",
+    "typescript": "^3.6.4"
+  },
+  "dependencies": {
+    "@node-wot/core": "^0.7.0",
+    "uuid": "^8.3.0"
+  }
+}

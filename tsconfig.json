@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "module": "commonjs",
+    "sourceMap": true,
+    "target": "es5",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "downlevelIteration": true
+  },
+  "exclude": ["node_modules", "dist"]
+}
