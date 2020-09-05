@@ -14,5 +14,18 @@ export default class Sprinkler {
     public get isActive() : boolean {
         return this.active
     }
+
+    /**
+     * activate
+     */
+    public activate() {
+        this.active = true;
+    }
     
+    /**
+     * stop
+     */
+    public stop() {
+        this.active = false;
+    }
 }
