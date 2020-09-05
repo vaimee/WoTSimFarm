@@ -16,7 +16,7 @@ export default class SoilSensor extends EventEmitter {
     }
 
     public get id(): string {
-        return this.id;
+        return this._id;
     }
 
     public set moisture(v: number) {

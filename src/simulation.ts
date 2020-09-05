@@ -1,4 +1,4 @@
-import Sprinkler from "./sprikler";
+import Sprinkler from "./sprinkler";
 import SoilSensor from "./soilSensor";
 
 export default class Simulation {
@@ -12,6 +12,10 @@ export default class Simulation {
 
     add(sprinkler:Sprinkler,sensors:Array<SoilSensor> = []){
         this.simObjects.set(sprinkler,sensors)
+    }
+
+    getSimObjects(){
+        return this.simObjects
     }
 
     step(){
