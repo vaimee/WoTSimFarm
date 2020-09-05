@@ -1,6 +1,7 @@
 import { v4 } from "uuid";
+import {EventEmitter} from 'events'
 
-export default class SoilSensor extends EventTarget {
+export default class SoilSensor extends EventEmitter {
     private _id: string;
     private _moisture: number;
     private _temperature: number;
@@ -10,6 +11,8 @@ export default class SoilSensor extends EventTarget {
         super();
         this._id = v4();
         this.tooDryTH = tooDryThreshHold;
+        this.moisture = 0;
+        this.temperature = 0;
     }
 
     public get id(): string {
@@ -17,6 +20,10 @@ export default class SoilSensor extends EventTarget {
     }
 
     public set moisture(v: number) {
+        if (this._moisture - v < this.tooDryTH) {
+            this.emit("tooDry")
+        }
+
         if(this.moisture + v < 0 ){
             this._moisture = 0;
             return;
@@ -27,9 +34,7 @@ export default class SoilSensor extends EventTarget {
 
         this._moisture = v;
         
-        if (this._moisture < this.tooDryTH) {
-            this.dispatchEvent(new Event("tooDry"))
-        }
+        
     }
 
     public get moisture(): number {
