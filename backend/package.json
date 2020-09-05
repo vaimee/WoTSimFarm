@@ -4,9 +4,9 @@
   "description": "",
   "main": "thing.js",
   "scripts": {
-    "build": "wam build --typescript ./src/farm.ts ./dist/bundle.js",
-    "debug": "wot-servient --inspect-brk -f servient.config.json ./dist/bundle.js",
-    "start": "wot-servient -f servient.config.json ./dist/bundle.js"
+    "build": "wam build --typescript ./src/farm.ts ../dist/backend/bundle.js",
+    "debug": "wot-servient --inspect-brk -f servient.config.json ../dist/backend/bundle.js",
+    "start": "wot-servient -f servient.config.json ../dist/backend/bundle.js"
   },
   "keywords": [
     ""

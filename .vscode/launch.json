@@ -6,6 +6,7 @@
   "configurations": [
     {
       "name": "Start application",
+      "cwd": "${workspaceFolder}/backend",
       "request": "launch",
       "runtimeArgs": ["run-script", "start"],
       "runtimeExecutable": "npm",
