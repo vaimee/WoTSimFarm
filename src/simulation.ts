@@ -40,7 +40,7 @@ export default class Simulation {
         // 2/(e^(x/2)+e^(-x/2)) min x = -6 and x = 6 max x = 0
         let x = dayHour - 12 //max solar evaporation at noon
         const e = Math.exp
-        const timeOfTheDayBooster = 2 / (e(dayHour / 2) - e(-dayHour / 2))
+        const timeOfTheDayBooster = 2 / (e(x / 2) + e(-x / 2))
         // Evaporation
         return moisture - 0.2 * timeOfTheDayBooster;
     }
