@@ -1,10 +1,12 @@
 import { Engine, Scene, ArcRotateCamera, HemisphericLight, Vector3, Mesh, MeshBuilder, SceneLoader } from 'babylonjs';
 import {OBJFileLoader} from 'babylonjs-loaders';
 
+
+SceneLoader.RegisterPlugin(new OBJFileLoader())
+
 var canvas: any = document.getElementById("renderCanvas");
 var engine: Engine = new Engine(canvas, true);
 
-SceneLoader.RegisterPlugin(new OBJFileLoader())
 
 function createScene(): Scene {
     var scene: Scene = new Scene(engine);
