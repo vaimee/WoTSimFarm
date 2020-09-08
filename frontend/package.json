@@ -19,6 +19,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "@node-wot/browser-bundle": "^0.7.1",
     "babylonjs": "^4.1.0"
   }
 }

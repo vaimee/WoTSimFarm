@@ -1,5 +1,8 @@
+
 import { Engine, Scene, ArcRotateCamera, HemisphericLight, Vector3, Mesh, MeshBuilder, SceneLoader } from 'babylonjs';
 import {OBJFileLoader} from 'babylonjs-loaders';
+import * as sim from "./simulation";
+import("@node-wot/browser-bundle").then(sim.default);
 
 
 SceneLoader.RegisterPlugin(new OBJFileLoader())
