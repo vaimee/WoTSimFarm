@@ -6,6 +6,7 @@ This project is a simple simulation of a digital farm. It can be used as a playg
 ## RoadMap 
 - Fronted:
     - [x] first rendering of the farm
+    - [ ] Modify the base 3d model of the farm to be more "usable"
     - [ ] connect fronted with the simulated web things
     - [ ] add animations
     - [ ] add a code editor to write user defined scripts
