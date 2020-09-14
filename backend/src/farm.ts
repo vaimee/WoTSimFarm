@@ -35,6 +35,8 @@ setInterval(()=>{
 function bindSoilSensor(soilSensor:SoilSensor,webThing:WoT.ExposedThing) {
     webThing.setPropertyReadHandler("moisture", async () => soilSensor.moisture);
     webThing.setPropertyWriteHandler("moisture", async (value) => soilSensor.moisture = value);
+    webThing.setPropertyReadHandler("temperature", async () => soilSensor.temperature);
+    webThing.setPropertyWriteHandler("temperature", async (value) => soilSensor.temperature = value);
 
     soilSensor.on("tooDry", webThing.emitEvent.bind(webThing, "tooDry"));
 }
@@ -52,7 +54,7 @@ function bindSprinkler(sprinkler:Sprinkler,webThing:WoT.ExposedThing) {
 
 function createSimulation() {
     let sensors = []
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 1; i++) {
         sensors.push(new SoilSensor(10))
     }
    
