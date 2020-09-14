@@ -14,16 +14,13 @@ var engine: Engine = new Engine(canvas, true);
 function createScene(): Scene {
     var scene: Scene = new Scene(engine);
     scene.createDefaultCameraOrLight();
-    var camera: ArcRotateCamera = new ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, Vector3.Zero(), scene);
     
-    camera.wheelDeltaPercentage = 0.01;
-    camera.attachControl(canvas, true);
     
 
-    SceneLoader.Append("./assets/farm/", "Farm.obj", scene, function(scene) {
-        console.log("here")
-        // Create a default arc rotate camera and light.
+    SceneLoader.Append("./assets/farm/", "farm_cliff.obj", scene, function(scene) {
         scene.createDefaultCameraOrLight(true, true, true);
+        const cam = scene.cameras[0] as ArcRotateCamera
+        cam.wheelDeltaPercentage = 0.01;
     })
     
     return scene;
