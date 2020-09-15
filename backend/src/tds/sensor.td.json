@@ -1,6 +1,9 @@
 {
-    "@context": "https://www.w3.org/2019/wot/td/v1",
+    "@context": ["https://www.w3.org/2019/wot/td/v1",{
+        "sosa": "http://www.w3.org/ns/sosa/"
+        }],
     "title": "SoilSensor",
+    "@type": "sosa:Sensor",
     "description": "A soil sensor",
     "securityDefinitions": {
         "no_sc": {

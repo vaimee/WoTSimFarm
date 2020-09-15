@@ -1,6 +1,9 @@
 {
     "@context": [
-        "https://www.w3.org/2019/wot/td/v1"
+        "https://www.w3.org/2019/wot/td/v1",
+        {
+            "sosa": "http://www.w3.org/ns/sosa/"
+        }
     ],
     "@type": [
         "Thing"
@@ -32,6 +35,12 @@
             "forms":[]
         }
     },
-    "properties": {},
+    "properties": {
+        "status": {
+            "type": "string",
+            "enum": ["on","off"],
+            "readOnly": true
+        }
+    },
     "events": {}
 }
