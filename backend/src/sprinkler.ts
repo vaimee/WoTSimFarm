@@ -1,8 +1,9 @@
+import Position from './position'
 export default class Sprinkler {
     private _litersPerSecond: number;
     private active: boolean;
     
-    constructor(litersPerSecond:number) {
+    constructor(litersPerSecond:number,public position:Position) {
         this._litersPerSecond = litersPerSecond;
         this.active = false;
     }

@@ -1,5 +1,6 @@
 import { v4 } from "uuid";
 import {EventEmitter} from 'events'
+import Position from "./position";
 
 export default class SoilSensor extends EventEmitter {
     private _id: string;
@@ -7,7 +8,7 @@ export default class SoilSensor extends EventEmitter {
     private _temperature: number;
     private tooDryTH: number;
 
-    constructor(tooDryThreshHold: number) {
+    constructor(tooDryThreshHold: number,public position:Position) {
         super();
         this._id = v4();
         this.tooDryTH = tooDryThreshHold;

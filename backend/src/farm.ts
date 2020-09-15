@@ -3,6 +3,8 @@ import sprinklerModel from './tds/sprinkler.td.json'
 import SoilSensor from './soilSensor'
 import Sprinkler from './sprinkler';
 import Simulation from './simulation';
+import simulationModel from "./assets/positions.json";
+import Position from './position';
 
 
 
@@ -13,13 +15,15 @@ sim.getSimObjects().forEach(async (sensors,sprinkler)=>{
         
         const copySensorModel = Object.assign({},sensorModel)
         copySensorModel.title = sensorModel.title + sensor.id;
+        copySensorModel["position"] = sensor.position 
         const sensorThing = await WoT.produce(copySensorModel);
 
         bindSoilSensor(sensor,sensorThing);
         
         await sensorThing.expose();
     }
-
+    
+    sprinklerModel["position"] = sprinkler.position 
     const sprinklerThing = await WoT.produce(sprinklerModel);
     
     bindSprinkler(sprinkler,sprinklerThing);
@@ -50,18 +54,22 @@ function bindSprinkler(sprinkler:Sprinkler,webThing:WoT.ExposedThing) {
     webThing.setActionHandler("stopSprinkler", async (data) => {
         sprinkler.stop();
     })
+    webThing.setPropertyReadHandler("status",async ()=> sprinkler.isActive ? "on": "off")
 }
 
 function createSimulation() {
-    let sensors = []
-    for (let i = 0; i < 1; i++) {
-        sensors.push(new SoilSensor(10))
-    }
-   
-    const sp1 = new Sprinkler(5);
-    
     const sim = new Simulation();
-    sim.add(sp1,sensors);
+    let sensors = simulationModel.filter((element) => element.type === "sensor" )
+                                .map(element => new SoilSensor(10, element.position))
+    
+    
+    for (const element of simulationModel) {
+        if(element.type === "sprinkler" ){
+            const sp1 = new Sprinkler(5,element.position);
+            //TODO: do a real association
+            sim.add(sp1, sensors);
+        }
+    }
 
     return sim;
 }
