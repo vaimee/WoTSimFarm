@@ -15,7 +15,5 @@ export default class SprinklerSystem extends AbstractEntitySystem {
 
         const status = await thing.readProperty("status")
         sprinkler.isActive = status === "on"
-        console.log("Stat",sprinkler.isActive);
-        
     }
 }
