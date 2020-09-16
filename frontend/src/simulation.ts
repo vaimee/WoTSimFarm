@@ -8,6 +8,7 @@ import { MeshBuilder, Scene, Vector3, Color3, Color4 } from "babylonjs";
 import { Position } from "./components/position";
 import MeshSystem from "./systems/meshSystem";
 import SprinklerComponent from "./components/sprinklerComponent";
+import SelectionSystem from "./systems/selectionSystem";
 
 async function discover(runtime:any) {
     const response = await fetch("http://localhost:8000/")
@@ -42,13 +43,16 @@ export default (scene:Scene) => {
     const engine = new Engine();
     engine.systems.add(new SoilSensorSystem())
     engine.systems.add(new MeshSystem(scene))
-    
+    engine.systems.add(new SelectionSystem(scene))
+
     servient.start().then(async (runtime: any) => {
         
         const things = await discover(runtime);
         for (const thing of things) {
             const thingComp = new ThingComponent(thing);
-            
+            const e = new FarmEntity();
+            engine.entities.add(e);
+
             let modelComponent;
             let meshComponent;
             let position;
@@ -57,7 +61,6 @@ export default (scene:Scene) => {
             if(td["@type"].includes("sosa:Sensor")){
                 modelComponent = new SoilSensorComponent(0, 0);
                 meshComponent = new MeshComponent(MeshBuilder.CreateBox("box", {}))
-                
                 position = new Position(new Vector3(td.position.x, td.position.z,-td.position.y))
             }else{
                 modelComponent = new SprinklerComponent(false);
@@ -67,13 +70,8 @@ export default (scene:Scene) => {
                
                 position = new Position(new Vector3(td.position.x, td.position.z, -td.position.y))
             }
-            
-           
-
-            const e = new FarmEntity();
-
             e.components.add(thingComp,modelComponent,meshComponent,position)
-            engine.entities.add(e);
+            
         }
 
         await engine.run()
