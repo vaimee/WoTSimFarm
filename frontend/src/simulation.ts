@@ -1,4 +1,4 @@
-import { Engine } from "@trixt0r/ecs";
+import { Engine, Component } from "@trixt0r/ecs";
 import SoilSensorSystem from "./systems/soilSensorSystem";
 import ThingComponent from "./components/thingComponent";
 import SoilSensorComponent from "./components/soilSensorComponent";
@@ -9,6 +9,7 @@ import { Position } from "./components/position";
 import MeshSystem from "./systems/meshSystem";
 import SprinklerComponent from "./components/sprinklerComponent";
 import SelectionSystem from "./systems/selectionSystem";
+import SprinklerSystem from "./systems/sprinklerSystem";
 
 async function discover(runtime:any) {
     const response = await fetch("http://localhost:8000/")
@@ -37,43 +38,47 @@ async function discover(runtime:any) {
     return result;
 }
 
-export default (scene:Scene) => {
+export default async function loadSimulation(scene:Scene): Promise<Engine> {
+    
     var servient = new Wot.Core.Servient({ clientOnly: true });
     servient.addClientFactory(new Wot.Http.HttpClientFactory());
+    
     const engine = new Engine();
     engine.systems.add(new SoilSensorSystem())
     engine.systems.add(new MeshSystem(scene))
     engine.systems.add(new SelectionSystem(scene))
+    engine.systems.add(new SprinklerSystem())
 
-    servient.start().then(async (runtime: any) => {
-        
-        const things = await discover(runtime);
-        for (const thing of things) {
-            const thingComp = new ThingComponent(thing);
-            const e = new FarmEntity();
-            engine.entities.add(e);
+    const runtime =  await servient.start();
 
-            let modelComponent;
-            let meshComponent;
-            let position;
-            const td = thing.getThingDescription();
+    const things = await discover(runtime);
+    
+    for (const thing of things) {
+        const e = new FarmEntity();
+        engine.entities.add(e);
+        const components = _componentFactory(thing);
+        e.components.add(...components)
+    }
 
-            if(td["@type"].includes("sosa:Sensor")){
-                modelComponent = new SoilSensorComponent(0, 0);
-                meshComponent = new MeshComponent(MeshBuilder.CreateBox("box", {}))
-                position = new Position(new Vector3(td.position.x, td.position.z,-td.position.y))
-            }else{
-                modelComponent = new SprinklerComponent(false);
-                
-                const box = MeshBuilder.CreateBox("box", { faceColors: Array(6).fill(new Color4(0.2,0.59,0.85,1))})
-                meshComponent = new MeshComponent(box)
-               
-                position = new Position(new Vector3(td.position.x, td.position.z, -td.position.y))
-            }
-            e.components.add(thingComp,modelComponent,meshComponent,position)
-            
-        }
+    return engine;
+}
 
-        await engine.run()
-    })
+export function _componentFactory(thing:WoT.ConsumedThing):Component[] {
+    const result:Component[] = []
+    const td = thing.getThingDescription();
+    result.push(new ThingComponent(thing))
+
+    if (td["@type"].includes("sosa:Sensor")) {
+        result.push(new SoilSensorComponent(0, 0));
+        result.push(new MeshComponent(MeshBuilder.CreateBox("box", {})));
+        result.push(new Position(new Vector3(td.position.x, td.position.z, -td.position.y)))
+    } else {
+        result.push(new SprinklerComponent(false));
+
+        const box = MeshBuilder.CreateBox("box", { faceColors: Array(6).fill(new Color4(0.2, 0.59, 0.85, 1)) })
+        result.push(new MeshComponent(box))
+
+        result.push(new Position(new Vector3(td.position.x, td.position.z, -td.position.y)))
+    }
+    return result;
 }

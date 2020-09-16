@@ -3,7 +3,7 @@ import ThingComponent from '../components/thingComponent'
 import SoilSensorComponent from '../components/soilSensorComponent'
 import SprinklerComponent from '../components/sprinklerComponent'
 
-export default class SoilSensorSystem extends AbstractEntitySystem {
+export default class SprinklerSystem extends AbstractEntitySystem {
 
     constructor() {
         super(undefined, [ThingComponent, SprinklerComponent])
@@ -15,5 +15,7 @@ export default class SoilSensorSystem extends AbstractEntitySystem {
 
         const status = await thing.readProperty("status")
         sprinkler.isActive = status === "on"
+        console.log("Stat",sprinkler.isActive);
+        
     }
 }
