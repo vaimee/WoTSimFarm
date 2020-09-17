@@ -9,7 +9,7 @@ import Position from './position';
 
 
 const sim = createSimulation()
-
+let sprinklerId = 0
 sim.getSimObjects().forEach(async (sensors,sprinkler)=>{
     for (const sensor of sensors) {
         
@@ -22,9 +22,10 @@ sim.getSimObjects().forEach(async (sensors,sprinkler)=>{
         
         await sensorThing.expose();
     }
-    
-    sprinklerModel["position"] = sprinkler.position 
-    const sprinklerThing = await WoT.produce(sprinklerModel);
+    const copySprinklerModel = Object.assign({}, sprinklerModel)
+    copySprinklerModel["position"] = sprinkler.position 
+    copySprinklerModel.title = sprinklerModel.title + sprinklerId++;
+    const sprinklerThing = await WoT.produce(copySprinklerModel);
     
     bindSprinkler(sprinkler,sprinklerThing);
 

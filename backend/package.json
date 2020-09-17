@@ -6,7 +6,8 @@
   "scripts": {
     "build": "wam build --typescript ./src/farm.ts ../dist/backend/bundle.js",
     "debug": "wot-servient --inspect-brk -f servient.config.json ../dist/backend/bundle.js",
-    "start": "wot-servient -f servient.config.json ../dist/backend/bundle.js"
+    "start": "wot-servient -f servient.config.json ../dist/backend/bundle.js",
+    "test": "mocha -r ts-node/register test/**.ts"
   },
   "keywords": [
     ""
@@ -17,7 +18,10 @@
     "@arces-wot/wam": "^0.5.1",
     "@node-wot/cli": "^0.7.0",
     "@rollup/plugin-typescript": "^2.0.1",
+    "@types/mocha": "^8.0.3",
     "@types/uuid": "^8.3.0",
+    "mocha": "^8.1.3",
+    "ts-node": "^9.0.0",
     "typescript": "^3.6.4"
   },
   "dependencies": {
