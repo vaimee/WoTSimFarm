@@ -3,7 +3,7 @@
     "incremental": true,
     "module": "commonjs",
     "sourceMap": true,
-    "target": "es5",
+    "target": "es6",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
