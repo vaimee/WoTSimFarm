@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@node-wot/core": "^0.7.0",
+    "deep-copy": "^1.4.2",
     "uuid": "^8.3.0"
   }
 }

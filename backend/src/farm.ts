@@ -6,6 +6,7 @@ import Simulation from './simulation';
 import simulationModel from "./assets/positions.json";
 import Position from './position';
 import Terrain from './terrain';
+import copy from 'deep-copy';
 
 
 
@@ -13,7 +14,7 @@ const sim = createSimulation()
 let sprinklerId = 0
 
 sim.sensors.forEach(async sensor => {
-    const copySensorModel = Object.assign({}, sensorModel)
+    const copySensorModel = copy(sensorModel)
     copySensorModel.title = sensorModel.title + sensor.id;
     copySensorModel["position"] = sensor.position
     const sensorThing = await WoT.produce(copySensorModel);
@@ -24,7 +25,7 @@ sim.sensors.forEach(async sensor => {
 })
 
 sim.sprinklers.forEach(async sprinkler => {
-    const copySprinklerModel = Object.assign({}, sprinklerModel)
+    const copySprinklerModel = copy(sprinklerModel);
     copySprinklerModel["position"] = sprinkler.position
     copySprinklerModel.title = sprinklerModel.title + sprinklerId++;
     const sprinklerThing = await WoT.produce(copySprinklerModel);

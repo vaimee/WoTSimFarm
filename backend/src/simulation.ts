@@ -58,7 +58,6 @@ export default class Simulation {
             for (const sprinkler of sprinklers) {
                 if(sprinkler.isActive){
                     terrain.poorWater(sprinkler.waterPerSecond,sprinkler.position,10)
-                    console.log(terrain.probeMoisture(sprinkler.position));
                     
                 }
             }
