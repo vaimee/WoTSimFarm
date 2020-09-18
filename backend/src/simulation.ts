@@ -1,22 +1,49 @@
 import Sprinkler from "./sprinkler";
 import SoilSensor from "./soilSensor";
+import Terrain from "./terrain";
 
 export default class Simulation {
     private simObjects: Map<Sprinkler,Array<SoilSensor>>;
+    private terrainSensor: Map<Terrain, Array<SoilSensor>>
+    private terrainSprinkler: Map<Terrain, Array<Sprinkler>>
     private timeOfTheDay: number;
 
     constructor() {
         this.simObjects = new Map();
         this.timeOfTheDay = 0; // 60 = 1 hour
+        this.terrainSensor= new Map();
+        this.terrainSprinkler = new Map();
     }
 
-    add(sprinkler:Sprinkler,sensors:Array<SoilSensor> = []){
-        this.simObjects.set(sprinkler,sensors)
+    addSprinkler(terrain:Terrain,sprinkler:Sprinkler){
+        if(!this.terrainSprinkler.has(terrain)){
+            this.terrainSprinkler.set(terrain,[])
+        }
+        this.terrainSprinkler.get(terrain).push(sprinkler)
     }
 
-    getSimObjects(){
-        return this.simObjects
+    addSensor(terrain:Terrain,sensor:SoilSensor){
+        if (!this.terrainSensor.has(terrain)) {
+            this.terrainSensor.set(terrain, [])
+        }
+        this.terrainSensor.get(terrain).push(sensor)
     }
+
+    
+    public get sensors() : SoilSensor[] {
+        return Array.from(this.terrainSensor.values()).reduce((result,current)=>{
+            return result.concat(current);
+        },[])
+    }
+
+    
+    public get sprinklers() : Sprinkler[] {
+        return Array.from(this.terrainSprinkler.values()).reduce((result, current) => {
+            return result.concat(current);
+        }, [])
+    }
+    
+    
 
     step(){
         this.timeOfTheDay++
@@ -27,25 +54,34 @@ export default class Simulation {
             this.timeOfTheDay = 0
         }
 
-        for (let [sprinkler, sensors] of this.simObjects) {
-            sensors.forEach(sensor => {
-                if (sprinkler.isActive){
-                    sensor.moisture += 1
+        for (const [terrain, sprinklers] of this.terrainSprinkler) {
+            for (const sprinkler of sprinklers) {
+                if(sprinkler.isActive){
+                    terrain.poorWater(sprinkler.waterPerSecond,sprinkler.position,10)
+                    console.log(terrain.probeMoisture(sprinkler.position));
+                    
                 }
-
-                sensor.moisture = this.evaporate(sensor.moisture,dayHour);
-            })
-           
+            }
+        }
+        
+        for (const [terrain, sensors] of this.terrainSensor) {
+            for (const sensor of sensors) {
+                sensor.moisture = terrain.probeMoisture(sensor.position)
+            }
         }
 
+        for (const [terrain] of this.terrainSprinkler) {
+            terrain.consumeWater(this.evaporate(this.timeOfTheDay))
+            terrain.spread(1)
+        }
     }
 
-    private evaporate(moisture:number,dayHour:number) {
+    private evaporate(dayHour:number) {
         // 2/(e^(x/2)+e^(-x/2)) min x = -6 and x = 6 max x = 0
         let x = dayHour - 12 //max solar evaporation at noon
         const e = Math.exp
         const timeOfTheDayBooster = 2 / (e(x / 2) + e(-x / 2))
         // Evaporation
-        return moisture - 0.2 * timeOfTheDayBooster;
+        return 0.2 * timeOfTheDayBooster;
     }
 }

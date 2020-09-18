@@ -7,11 +7,13 @@ export default class Terrain {
     
     private equations:((input:Vec3)=>number)[];
     private parameters:SechParameters[];
+    private cache:Map<Position,SechParameters>;
     
     constructor() {
         this.waterContent = 0;
         this.equations = [];
         this.parameters = [];
+        this.cache = new Map()
     }
     
     public probeMoisture(position:Position) : number {
@@ -31,6 +33,13 @@ export default class Terrain {
         
         let _range = range || 100
         _range = position ? 1 : range;
+
+        if(this.cache.has(position)){
+            const p = this.cache.get(position)
+            p.peak += milliliters;
+            //TODO: should we update also the range?
+            return;
+        }
 
         const params = {
             center: position,
@@ -54,6 +63,7 @@ export default class Terrain {
             // no water all the equations are less than 0
             this.parameters = []
             this.equations = []
+            this.cache = new Map()
         }
 
         for (const param of this.parameters) {

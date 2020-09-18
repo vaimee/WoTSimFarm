@@ -5,32 +5,35 @@ import Sprinkler from './sprinkler';
 import Simulation from './simulation';
 import simulationModel from "./assets/positions.json";
 import Position from './position';
+import Terrain from './terrain';
 
 
 
 const sim = createSimulation()
 let sprinklerId = 0
-sim.getSimObjects().forEach(async (sensors,sprinkler)=>{
-    for (const sensor of sensors) {
-        
-        const copySensorModel = Object.assign({},sensorModel)
-        copySensorModel.title = sensorModel.title + sensor.id;
-        copySensorModel["position"] = sensor.position 
-        const sensorThing = await WoT.produce(copySensorModel);
 
-        bindSoilSensor(sensor,sensorThing);
-        
-        await sensorThing.expose();
-    }
+sim.sensors.forEach(async sensor => {
+    const copySensorModel = Object.assign({}, sensorModel)
+    copySensorModel.title = sensorModel.title + sensor.id;
+    copySensorModel["position"] = sensor.position
+    const sensorThing = await WoT.produce(copySensorModel);
+
+    bindSoilSensor(sensor, sensorThing);
+
+    await sensorThing.expose();
+})
+
+sim.sprinklers.forEach(async sprinkler => {
     const copySprinklerModel = Object.assign({}, sprinklerModel)
-    copySprinklerModel["position"] = sprinkler.position 
+    copySprinklerModel["position"] = sprinkler.position
     copySprinklerModel.title = sprinklerModel.title + sprinklerId++;
     const sprinklerThing = await WoT.produce(copySprinklerModel);
-    
-    bindSprinkler(sprinkler,sprinklerThing);
+
+    bindSprinkler(sprinkler, sprinklerThing);
 
     await sprinklerThing.expose()
 })
+
 
 setInterval(()=>{
     sim.step();
@@ -60,17 +63,15 @@ function bindSprinkler(sprinkler:Sprinkler,webThing:WoT.ExposedThing) {
 
 function createSimulation() {
     const sim = new Simulation();
-    let sensors = simulationModel.filter((element) => element.type === "sensor" )
-                                .map(element => new SoilSensor(10, element.position))
-    
-    
-    for (const element of simulationModel) {
-        if(element.type === "sprinkler" ){
-            const sp1 = new Sprinkler(5,element.position);
-            //TODO: do a real association
-            sim.add(sp1, sensors);
-        }
-    }
+    let terrains = simulationModel.filter( element => element.type === "terrain")
+                    .reduce((map,terrain)=>{
+                        map.set(terrain.id,new Terrain())
+                        return map;
+                    },new Map<string,Terrain>())
+    simulationModel.filter((element) => element.type === "sensor" )
+        .forEach( sensor => sim.addSensor(terrains.get(sensor.terrainId),new SoilSensor(10, sensor.position)));
+    simulationModel.filter((element) => element.type === "sprinkler" )
+        .forEach(sprinkler => sim.addSprinkler(terrains.get(sprinkler.terrainId), new Sprinkler(1, sprinkler.position)));            
 
     return sim;
 }
