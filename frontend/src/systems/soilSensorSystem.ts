@@ -17,7 +17,7 @@ export default class SoilSensorSystem extends AbstractEntitySystem {
         
         sensor.moisture = moisture;
         sensor.temperature = temperature;
-        console.log("RUN SOIL")
+        
 
     }
 }
