@@ -3,6 +3,7 @@ import { Scene, ShaderMaterial, Vector3 } from "babylonjs"
 import vertex from "./shaders/sky_vertex";
 import fragment from "./shaders/sky_fragment";
 export default class SkyMaterial extends ShaderMaterial {
+    private _sunPosition: BABYLON.Vector3 = Vector3.Zero();
     
     constructor(scene:Scene) {
         
@@ -15,7 +16,7 @@ export default class SkyMaterial extends ShaderMaterial {
             })
         
         this.backFaceCulling = false;
-        this.setVector3("sunPosition", new Vector3(0, 1, 0));
+        this.sunPosition = new Vector3(0, 1, 0);
         this.onBind = () => {
             let cameraPosition = Vector3.Zero();
             const cameraWorldMatrix = scene.activeCamera?.getWorldMatrix();
@@ -28,4 +29,17 @@ export default class SkyMaterial extends ShaderMaterial {
 
         }
     }
+
+    public set sunPosition(value:Vector3){
+        this.setVector3("sunPosition", value);
+        this._sunPosition = value;
+    }
+
+    
+    public get sunPosition() : Vector3 {
+        return this._sunPosition;
+    }
+    
+
+
 }
