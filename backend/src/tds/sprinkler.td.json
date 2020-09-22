@@ -8,13 +8,19 @@
     "@type": [
         "Thing"
     ],
+    
     "title": "Sprinkler",
     "securityDefinitions": {
         "no_sec": {
             "scheme": "nosec"
         }
     },
-    "links": [],
+    "links": [
+        {
+            "href": "http://localhost:8080/assets/farm/sprinkler.obj",
+            "rel": "model"
+        }
+    ],
     "security": "no_sec",
     "actions": {
         "startSprinkler": {

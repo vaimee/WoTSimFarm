@@ -5,6 +5,12 @@
     "title": "SoilSensor",
     "@type": "sosa:Sensor",
     "description": "A soil sensor",
+    "links": [
+        {
+            "href": "http://localhost:8080/assets/farm/soilSensor.obj",
+            "rel": "model"
+        }
+    ],
     "securityDefinitions": {
         "no_sc": {
             "scheme": "nosec"

@@ -4,13 +4,13 @@ import ThingComponent from "./components/thingComponent";
 import SoilSensorComponent from "./components/soilSensorComponent";
 import FarmEntity from "./entity";
 import MeshComponent from "./components/mesh";
-import { MeshBuilder, Scene, Vector3, Color3, Color4 } from "babylonjs";
+import { MeshBuilder, Scene, Vector3, Color3, Color4, SceneLoader, Mesh } from "babylonjs";
 import { Position } from "./components/position";
 import MeshSystem from "./systems/meshSystem";
 import SprinklerComponent from "./components/sprinklerComponent";
 import SelectionSystem from "./systems/selectionSystem";
 import SprinklerSystem from "./systems/sprinklerSystem";
-import wateringSystem from "./systems/wateringSystem";
+import WateringSystem from "./systems/wateringSystem";
 
 async function discover(runtime:any) {
     const response = await fetch("http://localhost:8000/")
@@ -28,6 +28,9 @@ async function discover(runtime:any) {
         return false;
 
     })
+
+    console.log(thingsIds);
+    
     
     for (const selectedThing of things) {
         const selectedTD = await (await fetch(selectedThing)).json()
@@ -49,36 +52,41 @@ export default async function loadSimulation(scene:Scene): Promise<Engine> {
     engine.systems.add(new MeshSystem(scene))
     engine.systems.add(new SelectionSystem(scene))
     engine.systems.add(new SprinklerSystem())
-    engine.systems.add(new wateringSystem())
+    engine.systems.add(new WateringSystem())
 
     const runtime =  await servient.start();
 
     const things = await discover(runtime);
+    console.log(things.length);
     
     for (const thing of things) {
         const e = new FarmEntity();
         engine.entities.add(e);
-        const components = _componentFactory(thing);
+        const components = await _componentFactory(thing,scene);
         e.components.add(...components)
     }
 
     return engine;
 }
 
-export function _componentFactory(thing:WoT.ConsumedThing):Component[] {
+export async function _componentFactory(thing:WoT.ConsumedThing,scene:Scene):Promise<Component[]> {
     const result:Component[] = []
     const td = thing.getThingDescription();
+    
     result.push(new ThingComponent(thing))
+    const meshLink = td.links.find((link: any) => link.rel === "model")?.href;
 
     if (td["@type"].includes("sosa:Sensor")) {
         result.push(new SoilSensorComponent(0, 0));
-        result.push(new MeshComponent(MeshBuilder.CreateBox("box", {})));
+        
+        const data = await SceneLoader.ImportMeshAsync("", meshLink, "",scene)
+
+        result.push(new MeshComponent(data.meshes[0] as Mesh));
         result.push(new Position(new Vector3(td.position.x, td.position.z, -td.position.y)))
     } else {
         result.push(new SprinklerComponent(false));
-
-        const box = MeshBuilder.CreateBox("box", { faceColors: Array(6).fill(new Color4(0.2, 0.59, 0.85, 1)) })
-        result.push(new MeshComponent(box))
+        const data = await SceneLoader.ImportMeshAsync("", meshLink, "", scene)
+        result.push(new MeshComponent(data.meshes[0] as Mesh))
 
         result.push(new Position(new Vector3(td.position.x, td.position.z, -td.position.y)))
     }

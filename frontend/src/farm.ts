@@ -2,7 +2,6 @@
 import { Engine, Scene, ArcRotateCamera, HemisphericLight, Vector3, Mesh, MeshBuilder, SceneLoader } from 'babylonjs';
 import {OBJFileLoader} from 'babylonjs-loaders';
 import loadSimulation from "./simulation";
-import skymaterial from "./materials/skymaterial";
 import SkyMaterial from './materials/skymaterial';
 
 
@@ -11,7 +10,7 @@ import SkyMaterial from './materials/skymaterial';
 SceneLoader.RegisterPlugin(new OBJFileLoader())
 
 var canvas: any = document.getElementById("renderCanvas");
-var engine: Engine = new Engine(canvas, true);
+var engine: Engine = new Engine(canvas, true,{ stencil: true });
 
 
 function createScene(): Scene {
