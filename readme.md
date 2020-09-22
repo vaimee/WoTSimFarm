@@ -6,8 +6,8 @@ This project is a simple simulation of a digital farm. It can be used as a playg
 ## RoadMap 
 - Fronted:
     - [x] first rendering of the farm
-    - [ ] Modify the base 3d model of the farm to be more "usable"
-    - [ ] Skybox rendering
+    - [x] Modify the base 3d model of the farm to be more "usable"
+    - [x] Skybox rendering
     - [x] connect fronted with the simulated web things
     - [ ] add animations
     - [ ] add a code editor to write user defined scripts
@@ -18,7 +18,7 @@ This project is a simple simulation of a digital farm. It can be used as a playg
     - [ ] Add a discovery service
     - [ ] Create user private simulations
     - [ ] save simulation state
-    - [ ] weather service
+    - [ ] Weather service
     - [ ] Advanced terrain simulation
 
 ## Terrain simulation
