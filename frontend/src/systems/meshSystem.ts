@@ -9,7 +9,8 @@ export default class MeshSystem extends AbstractEntitySystem {
     
     constructor(public scene:Scene) {
         super(undefined, [MeshComponent, Position], undefined, [MeshComponent,Selection])
-        this.highLight = new HighlightLayer("selection",scene)
+        this.highLight = new HighlightLayer("selection",scene);
+        this.highLight.innerGlow = false;
     }
 
     onAddedComponents?(entity: AbstractEntity, ...components: Component[]): void {
@@ -23,7 +24,7 @@ export default class MeshSystem extends AbstractEntitySystem {
         const selection = components.find(c => c instanceof Selection)
         if(selection){
             const mesh = entity.components.get(MeshComponent).mesh
-            this.highLight.addMesh(mesh,Color3.Yellow())
+            this.highLight.addMesh(mesh,Color3.Red())
             
         }
     }
