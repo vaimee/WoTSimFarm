@@ -11,6 +11,7 @@ import SprinklerComponent from "./components/sprinklerComponent";
 import SelectionSystem from "./systems/selectionSystem";
 import SprinklerSystem from "./systems/sprinklerSystem";
 import WateringSystem from "./systems/wateringSystem";
+import UIInfoSystem from "./systems/UIInfoSystem";
 
 async function discover(runtime:any) {
     const response = await fetch("http://localhost:8000/")
@@ -53,6 +54,7 @@ export default async function loadSimulation(scene:Scene): Promise<Engine> {
     engine.systems.add(new SelectionSystem(scene))
     engine.systems.add(new SprinklerSystem())
     engine.systems.add(new WateringSystem())
+    engine.systems.add(new UIInfoSystem())
 
     const runtime =  await servient.start();
 

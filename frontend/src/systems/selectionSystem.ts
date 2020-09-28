@@ -18,7 +18,7 @@ export default class SelectionSystem extends AbstractEntitySystem {
             ActionManager.OnPointerOverTrigger,
             meshComp.mesh,
             'scaling',
-            new Vector3(1.2,1.2,1.2),
+            new Vector3(1.3,1.3,1.3),
             200
         ))
         meshComp.mesh.actionManager?.registerAction(new InterpolateValueAction(
