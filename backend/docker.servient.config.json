@@ -1,13 +1,10 @@
 {
   "servient": {
-    "staticAddress": "localhost",
+    "staticAddress": "arces143100.arces.unibo.it",
     "clientOnly": false,
     "scriptAction": false
   },
-  "http": {
-    "port": 8000, 
-    "selfSigned": false 
-  },
+  "http": { "port": 8080, "selfSigned": false },
   "coap": { "port": 5683 },
   "log": { "level": "info" }
 }
