@@ -3,35 +3,75 @@ import ThingComponent from '../components/thingComponent'
 import SoilSensorComponent from '../components/soilSensorComponent'
 import SprinklerComponent from '../components/sprinklerComponent'
 import MeshComponent from '../components/mesh'
-import { VertexBuffer } from 'babylonjs'
+import { ConeParticleEmitter, ParticleSystem, Scene, Texture, TransformNode, Vector3, VertexBuffer } from 'babylonjs'
+import { Position } from '../components/position'
+import { WaterSpring } from '../components/waterSpringComponet'
+import { ParticleSysComponent } from '../components/particleSysComponent'
 
 export default class WateringSystem extends AbstractEntitySystem {
+    private _scene: Scene
 
-    constructor() {
-        super(undefined, [SprinklerComponent,MeshComponent])
+    constructor(scene:Scene) {
+        super(undefined, [SprinklerComponent,WaterSpring])
+        this._scene = scene;
     }
 
     async processEntity(entity: AbstractEntity<Component, EntityListener<Component>>, index?: number | undefined, entities?: AbstractEntity<Component, EntityListener<Component>>[] | undefined, options?: any): Promise<void> {
+        
         const sprinkler = entity.components.get(SprinklerComponent)
+        const spring = entity.components.get(WaterSpring)
+       
+        
         if(sprinkler.isActive){
-            //TODO: start particles
-            const mesh = entity.components.get(MeshComponent).mesh
-            const data = mesh.getVerticesData(VertexBuffer.PositionKind)?.length
-            const vertices = data ? data/3 : 0
-            console.log(vertices)
-            var colors = new Array(4 * vertices);
-            colors = colors.fill(1);
-            for (var i = 0; i < 4; i++) {
-                console.log(colors.length,i);
-                
-                colors[4 * i++] = 1; // red
-                colors[4 * i++] = 0; // green
-                colors[4 * i++] = 0; // blue
-                colors[4 * i++] = 1; // alpha
-                console.log(colors.length, i);
-
+            console.log("Active!");
+            let system = entity.components.get(ParticleSysComponent);
+            
+            if(!system){
+                system = this.createSpring(spring);
+                entity.components.add(system);
+                system.particles.start();
             }
-            mesh.setVerticesData(VertexBuffer.ColorKind,colors);
+            !system.isActive && system.particles.start();
+        }else{
+            let system = entity.components.get(ParticleSysComponent);
+            system && system.isActive && system.particles.stop();
         }
+    }
+
+    createSpring(data:WaterSpring){
+
+        const watering = new ParticleSystem("watering", 4000, this._scene);
+
+        watering.particleTexture = new Texture("assets/systems/flare.png", this._scene); 1
+        watering.textureMask = new BABYLON.Color4(1.0, 1.0, 1.0, 1.0);
+
+        const type = new ConeParticleEmitter(1, 30)
+
+        type.emitFromSpawnPointOnly = true;
+        var emitter = new TransformNode("", this._scene);
+        //emitter.position = new Vector3(9.8, 10, 9.3)
+        emitter.position = data.position;
+
+        emitter.rotation.x = 2.5;
+        watering.particleEmitterType = type;
+        //@ts-ignore 
+        watering.emitter = emitter
+        watering.addVelocityGradient(0, 10);
+        watering.addVelocityGradient(1, 0);
+
+
+
+        watering.minSize = 0.01;
+        watering.maxSize = 0.5;
+
+        watering.minLifeTime = 0.1;
+        watering.maxLifeTime = 1;
+
+        watering.emitRate = 4000;
+        watering.color1 = new BABYLON.Color4(0.36, 0.58, 1);
+        watering.color2 = new BABYLON.Color4(0.2, 0.5, 1.0, 1.0);
+        watering.gravity = new Vector3(0, -2, 0);
+
+        return new ParticleSysComponent(watering);
     }
 }

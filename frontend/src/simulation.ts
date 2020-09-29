@@ -4,7 +4,7 @@ import ThingComponent from "./components/thingComponent";
 import SoilSensorComponent from "./components/soilSensorComponent";
 import FarmEntity from "./entity";
 import MeshComponent from "./components/mesh";
-import { MeshBuilder, Scene, Vector3, Color3, Color4, SceneLoader, Mesh } from "babylonjs";
+import { MeshBuilder, Scene, Vector3, Color3, Color4, SceneLoader, Mesh, Vector4 } from "babylonjs";
 import { Position } from "./components/position";
 import MeshSystem from "./systems/meshSystem";
 import SprinklerComponent from "./components/sprinklerComponent";
@@ -12,6 +12,7 @@ import SelectionSystem from "./systems/selectionSystem";
 import SprinklerSystem from "./systems/sprinklerSystem";
 import WateringSystem from "./systems/wateringSystem";
 import UIInfoSystem from "./systems/UIInfoSystem";
+import { WaterSpring } from "./components/waterSpringComponet";
 
 async function discover(runtime:any) {
     const response = await fetch("http://localhost:8000/")
@@ -53,7 +54,7 @@ export default async function loadSimulation(scene:Scene): Promise<Engine> {
     engine.systems.add(new MeshSystem(scene))
     engine.systems.add(new SelectionSystem(scene))
     engine.systems.add(new SprinklerSystem())
-    engine.systems.add(new WateringSystem())
+    engine.systems.add(new WateringSystem(scene))
     engine.systems.add(new UIInfoSystem())
 
     const runtime =  await servient.start();
@@ -91,6 +92,7 @@ export async function _componentFactory(thing:WoT.ConsumedThing,scene:Scene):Pro
         result.push(new MeshComponent(data.meshes[0] as Mesh))
 
         result.push(new Position(new Vector3(td.position.x, td.position.z, -td.position.y)))
+        result.push(new WaterSpring(new Vector3(td.position.x,td.position.z + 1.7,-td.position.y + 0.55)))
     }
     return result;
 }
