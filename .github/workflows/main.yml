@@ -34,9 +34,9 @@ jobs:
       - name: Build and push Backend
         uses: docker/build-push-action@v1.1.1
         with:
-          username: ${DOCKER_USER}
+          username: ${{secrets.DOCKER_USER}}
           # Password or personal access token used to log in to a Docker registry. If not set then no login will occur
-          password: ${DOCKER_PASS}
+          password: ${{secrets.DOCKER_PASS}}
           # Docker repository to tag the image with
           repository: "relucri"
           # Comma-delimited list of tags. These will be added to the registry/repository to form the image's tags
