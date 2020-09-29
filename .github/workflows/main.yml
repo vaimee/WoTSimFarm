@@ -38,9 +38,9 @@ jobs:
           # Password or personal access token used to log in to a Docker registry. If not set then no login will occur
           password: ${{secrets.DOCKER_PASS}}
           # Docker repository to tag the image with
-          repository: "relucri"
+          repository: relucri
           # Comma-delimited list of tags. These will be added to the registry/repository to form the image's tags
-          tags: "latest"
+          tags: latest
           # Automatically tags the built image with the git reference as per the readme
           tag_with_ref: true
           # Path to the build context
