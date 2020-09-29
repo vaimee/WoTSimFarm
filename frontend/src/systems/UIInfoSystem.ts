@@ -37,7 +37,7 @@ export default class UISystem extends AbstractEntitySystem {
            
             this._info = this.createTDInfoUI(thing.webThing.getThingDescription());
             this._ui.addControl(this._info);
-            this._info.linkOffsetY = -110;
+            this._info.linkOffsetY = -130;
             this._info.linkWithMesh(mesh);
     
             this._info.isVisible = true;
