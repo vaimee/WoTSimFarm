@@ -1,5 +1,6 @@
 const path = require("path")
-const html = require("html-webpack-plugin")
+const html = require("html-webpack-plugin");
+const { EnvironmentPlugin } = require("webpack");
 var HtmlWebpackSkipAssetsPlugin = require("html-webpack-skip-assets-plugin").HtmlWebpackSkipAssetsPlugin;
 
 module.exports = {
@@ -21,6 +22,7 @@ module.exports = {
     new html({
       template: "src/index.html",
     }),
+    new EnvironmentPlugin(["BACKEND_ADD"])
   ],
   module: {
     rules: [
