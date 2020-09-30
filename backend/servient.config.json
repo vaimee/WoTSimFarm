@@ -5,7 +5,7 @@
     "scriptAction": false
   },
   "http": {
-    "port": 8000, 
+    "port": 8080, 
     "selfSigned": false 
   },
   "coap": { "port": 5683 },

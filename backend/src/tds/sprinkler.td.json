@@ -17,7 +17,7 @@
     },
     "links": [
         {
-            "href": "http://localhost:8080/assets/farm/sprinkler.obj",
+            "href": "http://localhost/assets/farm/sprinkler.obj",
             "rel": "model"
         }
     ],

@@ -7,6 +7,9 @@ module.exports = {
   entry: {
     app: "./src/farm.ts",
   },
+  devServer: {
+    port: 80
+  },
   module: {
     noParse: /browser-bundle/,
   },

@@ -15,8 +15,8 @@ import UIInfoSystem from "./systems/UIInfoSystem";
 import { WaterSpring } from "./components/waterSpringComponet";
 
 async function discover(runtime:any) {
-    const addr = !process.env.BACKEND_ADD ? "http://localhost:8000/" : process.env.BACKEND_ADD
-    console.info("Fetching", process.env.BACKEND_ADD)
+    const addr = `http://${window.location.hostname}:8080`;
+    console.info("Fetching", addr)
     
     const response = await fetch(addr)
     let things = await response.json()
