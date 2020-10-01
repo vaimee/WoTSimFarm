@@ -16,7 +16,7 @@ import { WaterSpring } from "./components/waterSpringComponet";
 
 async function discover(runtime:any) {
     const addr = `http://${window.location.hostname}:8080`;
-    console.info("Fetching", addr)
+    console.info("Fetching", addr,"zaapp")
     
     const response = await fetch(addr)
     let things = await response.json()

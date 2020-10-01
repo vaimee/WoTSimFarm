@@ -24,8 +24,7 @@ module.exports = {
   plugins: [
     new html({
       template: "src/index.html",
-    }),
-    new EnvironmentPlugin(["BACKEND_ADD"])
+    })
   ],
   module: {
     rules: [
@@ -37,6 +36,9 @@ module.exports = {
       {
         test: /\.html?$/,
         loader: "html-loader",
+        options: {
+          attributes : false
+        }
       },
     ],
   },

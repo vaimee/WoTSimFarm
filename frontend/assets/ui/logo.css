@@ -1,0 +1,133 @@
+#logo {
+    display: flex;
+    width: 500px;
+    height: 180px;
+}
+ #o {
+    padding-left: 4%;
+    padding-right: 6%;
+}
+
+.letterContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.full {
+    width: 95%;
+}
+
+.line {
+    position: absolute;
+    z-index: -1;
+    opacity: 0%;
+}
+.letter{
+     width: 0%; 
+}
+
+.slideLeft{
+    opacity: 100%;
+    animation: slideLeft .8s infinite;  
+}
+
+.slideRight{
+    opacity: 100%;
+    animation: slideRight .8s infinite; 
+}
+.endLeft{
+    animation:  endLeft 0.5s forwards;
+}
+.endRight{
+    animation:  endRight 0.5s forwards;
+}
+.spin {
+    animation: spin 1.2s 0.4s forwards cubic-bezier(0.74, 0.01, 0.23, 0.99);
+}
+.pop {
+    width: 0%;
+    animation: popIn 0.35s forwards cubic-bezier(.25, 0, .851, 1.53)
+}
+.fadeOut{
+     animation: fadeOut 1s forwards;
+}
+/*animations */
+@keyframes popIn {
+    from {
+         width: 0%; 
+    }
+ 
+    80% {
+         width: 100%;
+    }
+    to {
+        width: 95%;
+    }
+
+}
+ @keyframes spin {
+    to {
+        transform: rotate(-360deg);
+    }
+
+}
+@keyframes slideLeft {
+    from {
+        display: block;
+        transform: translateX(0);
+    }
+    to {
+        display: block;
+        transform: translateX(-210%);
+    }
+}
+@keyframes slideRight {
+    from {
+        display: block;
+        transform: translateX(0);
+    }
+    to {
+        display: block;
+        transform: translateX(215%);
+    }
+}
+@keyframes endRight {
+    from {
+        display: block;
+        transform: translateX(0);
+    }
+    to {
+        display: block;
+        transform: translateX(101%);
+    }
+}
+@keyframes endLeft {
+    from {
+        display: block;
+        transform: translateX(0);
+    }
+    to {
+        display: block;
+        transform: translateX(-115%);
+    }
+}
+@keyframes showLater {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        background: rgba(255, 255, 255, 1);
+        opacity: 100%;
+    }
+    to {
+        background: rgba(255, 255, 255, 0);
+        opacity: 0%;
+    }
+}
