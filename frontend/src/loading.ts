@@ -26,14 +26,14 @@ export class WoTLoadingScreen implements ILoadingScreen {
             this.w?.classList.toggle("pop")
             this.o?.classList.toggle("pop")
             this.t?.classList.toggle("pop")
-            this.t?.addEventListener("animationend", this.goInfinite, { once: true })
+            this.t?.addEventListener("animationend", this.goInfinite.bind(this), { once: true })
         }, 1000);
        
         
     }
     
     public hideLoadingUI() {
-        !this.infiniteState && this.goInfinite()
+       !this.infiniteState && this.goInfinite()
         this.o?.classList.add("full")
         this.o?.classList.remove("pop", "letter")
         this.right?.addEventListener("animationiteration", () => {
