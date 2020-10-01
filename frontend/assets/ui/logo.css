@@ -79,7 +79,7 @@
     }
     to {
         display: block;
-        transform: translateX(-210%);
+        transform: translateX(-208%);
     }
 }
 @keyframes slideRight {
