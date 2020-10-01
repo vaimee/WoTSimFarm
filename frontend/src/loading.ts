@@ -27,12 +27,13 @@ export class WoTLoadingScreen implements ILoadingScreen {
             this.o?.classList.toggle("pop")
             this.t?.classList.toggle("pop")
             this.t?.addEventListener("animationend", this.goInfinite.bind(this), { once: true })
-        }, 1000);
+        }, 200);
        
         
     }
     
     public hideLoadingUI() {
+        console.log("oka!");
        !this.infiniteState && this.goInfinite()
         this.o?.classList.add("full")
         this.o?.classList.remove("pop", "letter")
@@ -54,6 +55,10 @@ export class WoTLoadingScreen implements ILoadingScreen {
     }
     
     private goInfinite(){
+        if(this.infiniteState){
+            return;
+        }
+    
         this.infiniteState = true
         this.right?.classList.toggle("slideRight")
         this.left?.classList.toggle("slideLeft")
