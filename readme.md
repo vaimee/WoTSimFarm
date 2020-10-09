@@ -1,6 +1,6 @@
 # WoT Farm Simulator
 This project is a simple simulation of a digital farm. It can be used as a playground to understand how the Web Of Thing works.
-
+[try it out](http://arces143100.arces.unibo.it/)!
 ![low poly 3D Farm](./imgs/3DFarm.png)
 
 ## RoadMap 
