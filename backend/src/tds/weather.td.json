@@ -1,0 +1,39 @@
+{
+    "@context": [
+        "https://www.w3.org/2019/wot/td/v1"
+    ],
+    "@type": [
+        "Thing"
+    ],
+    "title": "WeatherStation",
+    "securityDefinitions": {
+        "no_sec": {
+            "scheme": "nosec"
+        }
+    },
+    "links": [
+        {
+            "href": "http://localhost/assets/farm/weather_station.obj",
+            "rel": "model"
+        }
+    ],
+    "security": "no_sec",
+    "actions": {
+    },
+    "properties": {
+        "temperature":{
+            "type": "number",
+            "unit": "Celsius",
+            "title": "Air temperature",
+            "description": "returns the air temperature",
+            "forms": []
+        },
+        "humidity" : {
+            "type": "number",
+            "title": "Air humidity in %",
+            "description": "Relative air humidity",
+            "forms": []
+        }
+    },
+    "events": {}
+}
