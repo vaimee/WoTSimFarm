@@ -7,7 +7,7 @@
     "description": "A soil sensor",
     "links": [
         {
-            "href": "http://localhost:8080/assets/farm/soilSensor.obj",
+            "href": "http://localhost/assets/farm/soilsensor.obj",
             "rel": "model"
         }
     ],
