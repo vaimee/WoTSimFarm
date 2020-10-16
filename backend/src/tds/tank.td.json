@@ -1,0 +1,48 @@
+{
+    "@context": [
+        "https://www.w3.org/2019/wot/td/v1"
+    ],
+    "@type": [
+        "Thing"
+    ],
+    "title": "WaterTank",
+    "securityDefinitions": {
+        "no_sec": {
+            "scheme": "nosec"
+        }
+    },
+    "links": [
+        {
+            "href": "http://localhost/assets/farm/water_tank.obj",
+            "rel": "model"
+        }
+    ],
+    "security": "no_sec",
+    "actions": {},
+    "properties": {
+        "level": {
+            "type": "number",
+            "unit": "millimeters",
+            "title": "Water Level",
+            "description": "The current water level inside of this tank",
+            "forms": []
+        },
+        "capacity":{
+            "type": "number",
+            "readOnly": true,
+            "title": "Water Capacity",
+            "description": "The total capacity of this tank",
+            "forms": []
+        }
+    },
+    "events": {
+        "empty": {
+            "title": "Empty",
+            "description": "Fires when the level is zero",
+            "subscription": {},
+            "data": {},
+            "cancellation": {},
+            "forms": []
+        }
+    }
+}
