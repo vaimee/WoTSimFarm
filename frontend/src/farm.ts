@@ -60,6 +60,12 @@ function createScene(): Scene {
     SceneLoader.ShowLoadingScreen = false;
     SceneLoader.Append("./assets/farm/", "farm_cliff.obj", scene, async function(scene) {
        scene.createDefaultCameraOrLight(true, true, true);
+        
+       if (scene.getMeshByName("cliff_Plane.001")){
+            scene.getMeshByName("cliff_Plane.001")!.checkCollisions = true;
+        }
+       
+
         const simulationEngine = await loadSimulation(scene)
         const box = MeshBuilder.CreateBox("skyBox", {size:1000 }, scene);
         box.position.y -= 100;
@@ -71,6 +77,7 @@ function createScene(): Scene {
         cam.wheelDeltaPercentage = 0.01;
         cam.upperRadiusLimit = 200;
         cam.checkCollisions = true;
+        cam.collisionRadius = new Vector3(5, 5, 5)
         scene.useRightHandedSystem = true;
         setInterval(()=> simulationEngine.run(),1000)
         engine.hideLoadingUI();
