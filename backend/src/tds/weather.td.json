@@ -31,7 +31,23 @@
         "humidity" : {
             "type": "number",
             "title": "Air humidity in %",
+            "maximum": 100,
+            "minimum": 0,
             "description": "Relative air humidity",
+            "forms": []
+        },
+        "irradiance" : {
+            "type": "number",
+            "title": "Solar Irradiance",
+            "unit": "Watt/meter^2",
+            "description": "How much sunny it is",
+            "forms": []
+        },
+        "precipitation":{
+            "type": "number",
+            "title": "Precipitation",
+            "unit": "millimeter",
+            "description": "The total amount of water rained in the last hour",
             "forms": []
         }
     },
