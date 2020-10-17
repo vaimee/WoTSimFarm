@@ -1,0 +1,49 @@
+{
+    "@context": [
+        "https://www.w3.org/2019/wot/td/v1"
+    ],
+    "@type": [
+        "Thing"
+    ],
+    "title": "WaterTank",
+    "securityDefinitions": {
+        "no_sec": {
+            "scheme": "nosec"
+        }
+    },
+    "links": [
+        {
+            "href": "http://localhost/assets/farm/wind_sensor.obj",
+            "rel": "model"
+        }
+    ],
+    "security": "no_sec",
+    "actions": {},
+    "properties": {
+       "direction":{
+           "type": "string",
+           "enum": [
+               "N",
+               "NE",
+               "E",
+               "SE",
+               "S",
+               "SW",
+               "W",
+               "NW"
+           ],
+           "title": "Wind Direction",
+           "description": "",
+           "forms": []
+       },
+       "intensity":{
+           "type": "number",
+           "title": "Wind intensity",
+           "unit": "Kilometers/Hour",
+           "description": "Wind speed",
+           "forms": []
+       }
+    },
+    "events": {
+    }
+}
