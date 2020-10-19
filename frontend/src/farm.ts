@@ -5,7 +5,7 @@ import loadSimulation from "./simulation";
 import SkyMaterial from './materials/skymaterial';
 import { lightFragment } from 'babylonjs/Shaders/ShadersInclude/lightFragment';
 import { WoTLoadingScreen } from './loading';
-
+import Vue from "vue";
 
 document.onkeypress = function (e) {
     e = e || window.event;
@@ -38,13 +38,35 @@ document.onkeypress = function (e) {
         left?.addEventListener("animationiteration",()=>{
             left?.classList.toggle("endLeft")
         },{once:true});
-        
-        
     }
-
-
 };
 
+//Vue section, put in other file
+let v = new Vue({
+    el: "#app",
+    template: `
+    <div>   
+        <div id="splash">
+            <div id="logo">
+                <div class="letterContainer">
+                    <img id="w" class="letter" src="../assets/ui/w.png" alt="">
+                </div>
+                <div id="o" class="letterContainer" style="position: relative;">
+                    <img id="oLetter" class="letter" src="../assets/ui/o.png" style="animation-delay: 0.22s;" alt="">
+                    <img id="left" class="line" src="../assets/ui/line.png" alt="">
+                    <img id="right" class="line" src="../assets/ui/line.png" alt="">
+                </div>
+                <div class="letterContainer">
+                    <img id="t" class="letter" src="../assets/ui/t.png" style="animation-delay: 0.44s;" alt="">
+                </div>
+            </div>
+        </div>
+        <canvas id="renderCanvas"></canvas>
+    </div>`,
+    data: {
+        name: "World"
+    }
+});
 
 SceneLoader.RegisterPlugin(new OBJFileLoader())
 
