@@ -68,7 +68,6 @@ function createScene(): Scene {
             scene.getMeshByName("cliff_Plane.001")!.checkCollisions = true;
         }
        
-
         const simulationEngine = await loadSimulation(scene)
         const box = MeshBuilder.CreateBox("skyBox", {size:1000 }, scene);
         box.position.y -= 100;
@@ -88,8 +87,8 @@ function createScene(): Scene {
     
     return scene;
 }
-
-//window.addEventListener("resize", function () { engine.resize(); });
+//problem with flex resize
+//window.addEventListener("resize", function () { engine.resize(); }); 
 var scene: Scene = createScene();
 
 engine.runRenderLoop(() => {
