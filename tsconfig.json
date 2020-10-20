@@ -1,0 +1,8 @@
+{
+    // vscode Vetur fix. Please see https://github.com/vuejs/vetur/issues/815#issuecomment-408026341
+    // TODO: remove after the issue is solved.
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "allowJs": true
+    }
+}
