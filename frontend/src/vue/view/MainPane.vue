@@ -1,12 +1,39 @@
 <template>
-    <v-container fluid fill-height class="ma-0">
-        <v-row>
-            <v-col cols="6"></v-col>
-
+    <v-container fluid fill-height>
+        <v-row id="page-container">
+            <v-col cols="6" id="editor">
+            </v-col>
             <v-col cols="6">
                 <canvas id="renderCanvas"></canvas>
             </v-col>    
         </v-row>
-        <!--<editor></editor>-->
     </v-container>
 </template>
+
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+import * as monaco from 'monaco-editor';
+@Component
+export default class MainPane extends Vue {
+    code : string = "" 
+    mounted() {
+        console.log("here..")
+        monaco.editor.create(document.getElementById("editor")!, {
+	        value: ['//WoT Code! Enjoy !!!!'].join('\n'),
+            language: 'typescript',
+            theme: "vs-dark",
+            renderWhitespace: 'all',
+            automaticLayout: true
+        });
+    }
+    beforeUpdate() {
+    // do something
+    }
+}
+</script>
+
+<style scoped>
+    #editor {
+        text-align: left;
+    }
+</style>

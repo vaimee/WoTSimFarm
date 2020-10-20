@@ -6,7 +6,6 @@ import SkyMaterial from './materials/skymaterial';
 import { lightFragment } from 'babylonjs/Shaders/ShadersInclude/lightFragment';
 import { WoTLoadingScreen } from './loading';
 import Vue from "vue";
-import SplashScreen from "./components/vue/SplashScreen"
 import App from './vue/App' //todo solve this error
 import vuetify from './vue/plugins/vuetify'
 
@@ -90,7 +89,7 @@ function createScene(): Scene {
     return scene;
 }
 
-window.addEventListener("resize", function () { engine.resize(); });
+//window.addEventListener("resize", function () { engine.resize(); });
 var scene: Scene = createScene();
 
 engine.runRenderLoop(() => {
