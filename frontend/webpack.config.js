@@ -2,6 +2,7 @@ const path = require("path")
 const html = require("html-webpack-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const { EnvironmentPlugin } = require("webpack");
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 var HtmlWebpackSkipAssetsPlugin = require("html-webpack-skip-assets-plugin").HtmlWebpackSkipAssetsPlugin;
 
 module.exports = {
@@ -29,7 +30,10 @@ module.exports = {
     new html({
       template: "src/index.html",
     }),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new MonacoWebpackPlugin({
+      languages: ['javascript', 'css', 'html', 'typescript']
+    })
   ],
   module: {
     rules: [
@@ -63,6 +67,10 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.ttf$/,
+        use: ['file-loader']
       },
       {
         test: /\.s(c|a)ss$/,

@@ -16,3 +16,16 @@
     </div>
 </template>
 
+<style scoped>
+    #splash {
+        position: absolute;
+        background: white;
+        left: 0;
+        display: flex;
+        z-index: 100;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+</style>

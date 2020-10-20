@@ -1,9 +1,18 @@
 <template>
-    <v-app>
+    <v-app dark>
         <splash-screen/>
+        <v-app-bar app dark dense>
+          <!-- todo move in another file-->
+          <v-toolbar-title>WoT Farm</v-toolbar-title>
+        </v-app-bar>
         <v-main>
           <main-pane/>
         </v-main>
+        <v-footer padless dark>
+          <v-col class="text-center" cols="12">
+            {{ new Date().getFullYear() }} — <strong>cris.dev</strong>
+          </v-col>
+        </v-footer>
     </v-app>
 </template>
 
