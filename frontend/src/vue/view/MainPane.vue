@@ -26,14 +26,16 @@ export default class MainPane extends Vue {
             automaticLayout: true
         });
     }
-    beforeUpdate() {
-    // do something
-    }
 }
 </script>
 
 <style scoped>
     #editor {
         text-align: left;
+    }   
+    #renderCanvas {
+        width: 100%;
+        height: 100%;
+        touch-action: none;
     }
 </style>
