@@ -24,7 +24,11 @@
     components: { SplashScreen, MainPane }
   })
   export default class extends Vue { 
-    
-  }
+}
 </script>
 
+<style scoped>
+  #main {
+    height: 0;
+  }
+</style>

@@ -42,7 +42,7 @@ export default class MainPane extends Vue {
 </script>
 
 <style scoped>
-#editor {
-    text-align: left;
-}
+    #editor {
+        text-align: left;
+    }
 </style>

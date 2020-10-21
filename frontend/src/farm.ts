@@ -47,3 +47,10 @@ new Vue({
     vuetify,
     render: h => h(App)
 }).$mount('#app');
+
+/*
+//problem with flex resize
+window.addEventListener("resize", function () { engine.resize(); }); 
+canvas.addEventListener("resize", function () { 
+    engine.resize(); 
+})*/
