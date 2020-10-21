@@ -20,7 +20,7 @@
           <v-card class="flex" flat tile>
             <v-card-title class="pa-1">
               <v-spacer></v-spacer>
-              <v-btn icon>
+              <v-btn icon @click="onClick()">
                 <v-icon size="24px">mdi-code-array</v-icon>
               </v-btn>
             </v-card-title>
@@ -33,11 +33,16 @@
   import { Component, Vue } from 'vue-property-decorator';
   import SplashScreen from './components/SplashScreen.vue';
   import MainPane from './view/MainPane.vue';
+  import store from './plugins/vuex';
   @Component({
     components: { SplashScreen, MainPane }
   })
   export default class extends Vue { 
-}
+    public onClick() {
+      console.log("clicked")
+      store.dispatch("toggleCode") 
+    }
+  }
 </script>
 
 <style scoped>

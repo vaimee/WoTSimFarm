@@ -61,6 +61,10 @@
             this.scene = this.createScene(this.engine);
             this.engine.runRenderLoop(() => this.scene!.render())
         }
+
+        public resize() {
+            this.engine!.resize()
+        }
     }
 </script>
 

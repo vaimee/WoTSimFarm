@@ -1,14 +1,18 @@
 <template>
     <v-container fluid fill-height pa-0>
-        <splitpanes class="default-theme" style="height: 100%" id="page-container">
+        <splitpanes class="default-theme" id="page-container" 
+            @resize="splitPaneResized" 
+            @pane-maximize="splitPaneBouncing"
+            @pane-add="splitPaneBouncing"
+            @pane-remove="splitPaneBouncing"
+        >
             <pane v-if="codeEnabled" min-size="20">
                 <code-editor/>
             </pane>
             <pane min-size="20">
-                <simulation-pane/>
+                <simulation-pane ref="simulationPane"/>
             </pane>
         </splitpanes>
-        
     </v-container>
 </template>
 
@@ -25,6 +29,29 @@ import store from '../plugins/vuex';
     components: { Splitpanes, Pane, SimulationPane, CodeEditor }
 })
 export default class MainPane extends Vue {
-    codeEnabled : boolean = store.state.codeEnabled
+    simulationPane : SimulationPane | null = null
+    mounted() {
+        this.simulationPane = <SimulationPane> this.$refs["simulationPane"]
+        window.addEventListener("resize", () => this.simulationPane!.resize()); 
+    }
+
+    get codeEnabled() : boolean {
+        return store.state.codeEnabled
+    } 
+
+    splitPaneResized() {
+        this.simulationPane!.resize()
+    }
+
+    splitPaneBouncing() {
+        setTimeout(() => this.simulationPane!.resize(), 200)
+    }
+    
  }
 </script>
+
+<style scoped>
+    #page-container {
+        height: 100%
+    }
+</style>
