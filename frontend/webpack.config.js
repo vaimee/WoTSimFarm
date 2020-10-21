@@ -32,7 +32,7 @@ module.exports = {
     }),
     new VueLoaderPlugin(),
     new MonacoWebpackPlugin({
-      languages: ['javascript', 'css', 'html', 'typescript']
+      languages: ['javascript', 'css', 'html', 'typescript']  
     })
   ],
   module: {
@@ -69,7 +69,7 @@ module.exports = {
         loader: 'style-loader!css-loader'
       },
       {
-        test: /\.ttf$/,
+        test: /\.(ttf)|(woff)|(woff2)|(eot)$/,
         use: ['file-loader']
       },
       {

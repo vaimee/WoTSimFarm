@@ -8,6 +8,7 @@ import { WoTLoadingScreen } from './loading';
 import Vue from "vue";
 import App from './vue/App' //todo solve this error
 import vuetify from './vue/plugins/vuetify'
+import store from './vue/plugins/vuex'
 
 document.onkeypress = function (e) {
     e = e || window.event;
@@ -45,12 +46,6 @@ document.onkeypress = function (e) {
 //vue initialization
 new Vue({
     vuetify,
+    store,
     render: h => h(App)
 }).$mount('#app');
-
-/*
-//problem with flex resize
-window.addEventListener("resize", function () { engine.resize(); }); 
-canvas.addEventListener("resize", function () { 
-    engine.resize(); 
-})*/

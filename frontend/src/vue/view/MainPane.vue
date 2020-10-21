@@ -1,10 +1,10 @@
 <template>
     <v-container fluid fill-height pa-0>
         <splitpanes class="default-theme" style="height: 100%" id="page-container">
-            <pane v-if="codeEnabled" min-size="20" size="30">
+            <pane v-if="codeEnabled" min-size="20">
                 <code-editor/>
             </pane>
-            <pane min-size="20" size="70">
+            <pane min-size="20">
                 <simulation-pane/>
             </pane>
         </splitpanes>
@@ -20,10 +20,11 @@ import CodeEditor from '../components/CodeEditor.vue'
 import { Splitpanes, Pane } from 'splitpanes'; //!!!!! TODO FIX
 import 'splitpanes/dist/splitpanes.css';
 import * as monaco from 'monaco-editor';
+import store from '../plugins/vuex';
 @Component({
     components: { Splitpanes, Pane, SimulationPane, CodeEditor }
 })
 export default class MainPane extends Vue {
-    codeEnabled : boolean = true
+    codeEnabled : boolean = store.state.codeEnabled
  }
 </script>
