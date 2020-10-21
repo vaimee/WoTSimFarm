@@ -1,10 +1,10 @@
 <template>
     <v-container fluid fill-height pa-0>
-        <splitpanes class="default-theme" style="height: 100%" id="page-container" @resized="log($event)">
-            <pane v-if="codeEnabled">
-                <div id="editor" class="fill-height"></div>
+        <splitpanes class="default-theme" style="height: 100%" id="page-container">
+            <pane v-if="codeEnabled" min-size="20" size="30">
+                <code-editor/>
             </pane>
-            <pane>
+            <pane min-size="20" size="70">
                 <simulation-pane/>
             </pane>
         </splitpanes>
@@ -15,34 +15,15 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import SimulationPane from './SimulationPane.vue';
+import CodeEditor from '../components/CodeEditor.vue'
 // @ts-ignore
 import { Splitpanes, Pane } from 'splitpanes'; //!!!!! TODO FIX
 import 'splitpanes/dist/splitpanes.css';
 import * as monaco from 'monaco-editor';
 @Component({
-    components: { Splitpanes, Pane, SimulationPane }
+    components: { Splitpanes, Pane, SimulationPane, CodeEditor }
 })
 export default class MainPane extends Vue {
-    code : string = "" ;
-    codeEnabled : boolean = true;
-    public log(event : any) {
-        console.log(event);
-    }
-
-    mounted() {
-        monaco.editor.create(document.getElementById("editor")!, {
-	        value: ['//WoT Code! Enjoy !!!!'].join('\n'),
-            language: 'typescript',
-            theme: "vs-dark",
-            renderWhitespace: 'all',
-            automaticLayout: true
-        });
-    }
-}
+    codeEnabled : boolean = true
+ }
 </script>
-
-<style scoped>
-    #editor {
-        text-align: left;
-    }
-</style>
