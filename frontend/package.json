@@ -37,6 +37,7 @@
     "wot-typescript-definitions": "^0.7.3"
   },
   "dependencies": {
+    "@mdi/font": "^5.7.55",
     "@node-wot/browser-bundle": "^0.7.1",
     "@trixt0r/ecs": "^0.4.0",
     "babylonjs": "^4.1.0",
@@ -45,6 +46,7 @@
     "fibers": "^4.0.3",
     "monaco-editor": "^0.21.2",
     "punycode": "^2.1.1",
+    "splitpanes": "^2.3.4",
     "style-loader": "^2.0.0",
     "vue": "^2.6.12",
     "vue-class-component": "^7.2.6",
