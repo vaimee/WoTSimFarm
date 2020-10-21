@@ -1,23 +1,35 @@
 <template>
-    <v-container fluid fill-height>
-        <v-row id="page-container">
-            <v-col cols="6" id="editor">
-            </v-col>
-            <v-col cols="6">
-                <canvas id="renderCanvas"></canvas>
-            </v-col>    
-        </v-row>
+    <v-container fluid fill-height pa-0>
+        <splitpanes class="default-theme" style="height: 100%" id="page-container" @resized="log($event)">
+            <pane v-if="codeEnabled">
+                <div id="editor" class="fill-height"></div>
+            </pane>
+            <pane>
+                <simulation-pane/>
+            </pane>
+        </splitpanes>
+        
     </v-container>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
+import SimulationPane from './SimulationPane.vue';
+// @ts-ignore
+import { Splitpanes, Pane } from 'splitpanes'; //!!!!! TODO FIX
+import 'splitpanes/dist/splitpanes.css';
 import * as monaco from 'monaco-editor';
-@Component
+@Component({
+    components: { Splitpanes, Pane, SimulationPane }
+})
 export default class MainPane extends Vue {
-    code : string = "" 
+    code : string = "" ;
+    codeEnabled : boolean = true;
+    public log(event : any) {
+        console.log(event);
+    }
+
     mounted() {
-        console.log("here..")
         monaco.editor.create(document.getElementById("editor")!, {
 	        value: ['//WoT Code! Enjoy !!!!'].join('\n'),
             language: 'typescript',
@@ -30,12 +42,7 @@ export default class MainPane extends Vue {
 </script>
 
 <style scoped>
-    #editor {
-        text-align: left;
-    }   
-    #renderCanvas {
-        width: 100%;
-        height: 100%;
-        touch-action: none;
-    }
+#editor {
+    text-align: left;
+}
 </style>
