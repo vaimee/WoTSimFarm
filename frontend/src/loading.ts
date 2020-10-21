@@ -1,5 +1,5 @@
 import { ILoadingScreen } from "babylonjs";
-
+//TODO uniform with vue component
 export class WoTLoadingScreen implements ILoadingScreen {
     //optional, but needed due to interface definitions
     public loadingUIBackgroundColor: string = "#FFFF00"
@@ -28,8 +28,6 @@ export class WoTLoadingScreen implements ILoadingScreen {
             this.t?.classList.toggle("pop")
             this.t?.addEventListener("animationend", this.goInfinite.bind(this), { once: true })
         }, 200);
-       
-        
     }
     
     public hideLoadingUI() {
@@ -58,10 +56,8 @@ export class WoTLoadingScreen implements ILoadingScreen {
         if(this.infiniteState){
             return;
         }
-    
         this.infiniteState = true
         this.right?.classList.toggle("slideRight")
         this.left?.classList.toggle("slideLeft")
-         
     }
 }

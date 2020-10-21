@@ -5,7 +5,10 @@ import loadSimulation from "./simulation";
 import SkyMaterial from './materials/skymaterial';
 import { lightFragment } from 'babylonjs/Shaders/ShadersInclude/lightFragment';
 import { WoTLoadingScreen } from './loading';
-
+import Vue from "vue";
+import App from './vue/App' //todo solve this error
+import vuetify from './vue/plugins/vuetify'
+import store from './vue/plugins/vuex'
 
 document.onkeypress = function (e) {
     e = e || window.event;
@@ -38,57 +41,11 @@ document.onkeypress = function (e) {
         left?.addEventListener("animationiteration",()=>{
             left?.classList.toggle("endLeft")
         },{once:true});
-        
-        
     }
-
-
 };
-
-
-SceneLoader.RegisterPlugin(new OBJFileLoader())
-
-var canvas: any = document.getElementById("renderCanvas");
-var engine: Engine = new Engine(canvas, true,{ stencil: true });
-engine.loadingScreen = new WoTLoadingScreen(document.getElementById("splash"))
-engine.displayLoadingUI();
-
-function createScene(): Scene {
-    var scene: Scene = new Scene(engine);
-    scene.createDefaultCameraOrLight();
-    scene.useRightHandedSystem = true;
-    SceneLoader.ShowLoadingScreen = false;
-    SceneLoader.Append("./assets/farm/", "farm_cliff.obj", scene, async function(scene) {
-       scene.createDefaultCameraOrLight(true, true, true);
-        
-       if (scene.getMeshByName("cliff_Plane.001")){
-            scene.getMeshByName("cliff_Plane.001")!.checkCollisions = true;
-        }
-       
-
-        const simulationEngine = await loadSimulation(scene)
-        const box = MeshBuilder.CreateBox("skyBox", {size:1000 }, scene);
-        box.position.y -= 100;
-        scene.ambientColor = new BABYLON.Color3(0.3, 0.3, .3);
-        const sky = new SkyMaterial(scene);
-        box.material = sky;
-
-        const cam = scene.cameras[0] as ArcRotateCamera
-        cam.wheelDeltaPercentage = 0.01;
-        cam.upperRadiusLimit = 200;
-        cam.checkCollisions = true;
-        cam.collisionRadius = new Vector3(5, 5, 5)
-        scene.useRightHandedSystem = true;
-        setInterval(()=> simulationEngine.run(),1000)
-        engine.hideLoadingUI();
-    })
-    
-    return scene;
-}
-
-window.addEventListener("resize", function () { engine.resize(); });
-var scene: Scene = createScene();
-
-engine.runRenderLoop(() => {
-    scene.render();
-});
+//vue initialization
+new Vue({
+    vuetify,
+    store,
+    render: h => h(App)
+}).$mount('#app');
