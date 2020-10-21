@@ -21,9 +21,7 @@ export default class MainPane extends Vue {
         monaco.editor.create(document.getElementById("editor")!, {
 	        value: ['//WoT Code! Enjoy !!!!'].join('\n'),
             language: 'typescript',
-            theme: "vs-dark",
-            renderWhitespace: 'all',
-            automaticLayout: true
+            theme: "vs-dark"
         });
     }
 }
