@@ -6,10 +6,10 @@
             @pane-add="splitPaneBouncing"
             @pane-remove="splitPaneBouncing"
         >
-            <pane v-if="codeEnabled" min-size="20">
+            <pane v-if="codeEnabled" min-size="20" size ="33">
                 <code-editor/>
             </pane>
-            <pane min-size="20">
+            <pane min-size="20" size="77">
                 <simulation-pane ref="simulationPane"/>
             </pane>
         </splitpanes>
@@ -32,18 +32,20 @@ export default class MainPane extends Vue {
     simulationPane : SimulationPane | null = null
     mounted() {
         this.simulationPane = <SimulationPane> this.$refs["simulationPane"]
+        window.addEventListener("resize", () => this.simulationPane!.resize()); 
+        this.splitPaneBouncing()
     }
 
     get codeEnabled() : boolean {
         return store.state.codeEnabled
     } 
 
-    splitPaneResized() {
+    splitPaneResized() {    
         this.simulationPane!.resize()
     }
 
     splitPaneBouncing() {
-        setTimeout(() => this.simulationPane!.resize(), 0)
+        this.$nextTick(() => this.simulationPane!.resize())
     }
     
  }
