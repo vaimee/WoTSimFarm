@@ -56,8 +56,6 @@
             this.engine = new Engine(canvas, true,{ stencil: true });
             this.engine.loadingScreen = new WoTLoadingScreen(document.getElementById("splash"));
             this.engine.displayLoadingUI();
-            //problem with flex resize
-            window.addEventListener("resize", () => this.engine!.resize()); 
             this.scene = this.createScene(this.engine);
             this.engine.runRenderLoop(() => this.scene!.render())
         }
