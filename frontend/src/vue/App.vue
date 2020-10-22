@@ -3,13 +3,14 @@
         <splash-screen/>
         <v-app-bar app dense flat id="app-bar">
           <!-- todo move in another file-->
-          <v-toolbar-title>WoT Farm</v-toolbar-title>
+          <img src="assets/logo.svg" style="height : 50%">
+          <v-toolbar-title style="margin-left: 10px">Farm Simulation</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn small icon fab>
-            <v-icon color="green">mdi-play</v-icon>
+            <v-icon color="#005a9c">mdi-play</v-icon>
           </v-btn>
           <v-btn small icon fab>
-            <v-icon color="red">mdi-pause</v-icon>
+            <v-icon color="#b3b3b3">mdi-pause</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
         </v-app-bar>

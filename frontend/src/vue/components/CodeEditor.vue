@@ -10,7 +10,7 @@ export default class CodeEditor extends Vue {
         monaco.editor.create(document.getElementById("editor")!, {
 	        value: '//WoT Code! Enjoy !!!!',
             language: 'typescript',
-            theme: "vs-dark",
+            theme: "vs",
             renderWhitespace: 'all',
             automaticLayout: true
         });
