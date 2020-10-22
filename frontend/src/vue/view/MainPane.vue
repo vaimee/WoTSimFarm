@@ -32,7 +32,6 @@ export default class MainPane extends Vue {
     simulationPane : SimulationPane | null = null
     mounted() {
         this.simulationPane = <SimulationPane> this.$refs["simulationPane"]
-        window.addEventListener("resize", () => this.simulationPane!.resize()); 
     }
 
     get codeEnabled() : boolean {
@@ -44,7 +43,7 @@ export default class MainPane extends Vue {
     }
 
     splitPaneBouncing() {
-        setTimeout(() => this.simulationPane!.resize(), 200)
+        setTimeout(() => this.simulationPane!.resize(), 0)
     }
     
  }
@@ -54,4 +53,5 @@ export default class MainPane extends Vue {
     #page-container {
         height: 100%
     }
+    .splitpanes__pane {transition: none;}
 </style>
