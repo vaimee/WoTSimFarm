@@ -12,6 +12,7 @@
     import SkyMaterial from '../../materials/skymaterial';
     import { lightFragment } from 'babylonjs/Shaders/ShadersInclude/lightFragment';
     import { WoTLoadingScreen } from '../../loading';
+    import store from '../plugins/vuex';
 
     SceneLoader.RegisterPlugin(new OBJFileLoader()) //register the file loader
     @Component
@@ -26,14 +27,15 @@
             scene.createDefaultCameraOrLight();
             scene.useRightHandedSystem = true;
             SceneLoader.ShowLoadingScreen = false;
-            SceneLoader.Append("./assets/farm/", "farm_cliff.obj", scene, async function(scene) {
+            SceneLoader.Append("./assets/farm/", "farm_cliff.obj", scene, async (scene) => {
             scene.createDefaultCameraOrLight(true, true, true);
                 
             if (scene.getMeshByName("cliff_Plane.001")){
                     scene.getMeshByName("cliff_Plane.001")!.checkCollisions = true;
                 }
-            
-                const simulationEngine = await loadSimulation(scene)
+
+                let servient = store.getters.servient
+                const simulationEngine = await loadSimulation(scene,servient)
                 const box = MeshBuilder.CreateBox("skyBox", {size:1000 }, scene);
                 box.position.y -= 100;
                 scene.ambientColor = new BABYLON.Color3(0.3, 0.3, .3);
@@ -57,6 +59,9 @@
             this.engine.loadingScreen = new WoTLoadingScreen(document.getElementById("splash"));
             this.engine.displayLoadingUI();
             this.scene = this.createScene(this.engine);
+            this.$on("play",()=>{
+                console.log("servient I choose you")
+            })
             this.engine.runRenderLoop(() => this.scene!.render())
         }
 

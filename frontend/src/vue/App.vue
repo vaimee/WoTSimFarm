@@ -6,7 +6,7 @@
           <img src="assets/logo.svg" style="height : 50%">
           <v-toolbar-title style="margin-left: 10px">Farm Simulation</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn small icon fab>
+          <v-btn small icon fab  @click="play()">
             <v-icon color="#005a9c">mdi-play</v-icon>
           </v-btn>
           <v-btn small icon fab>
@@ -42,6 +42,9 @@
     public onClick() {
       console.log("clicked")
       store.dispatch("toggleCode") 
+    }
+    public play(){
+      store.dispatch('runCode')
     }
   }
 </script>
