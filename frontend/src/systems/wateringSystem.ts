@@ -3,7 +3,7 @@ import ThingComponent from '../components/thingComponent'
 import SoilSensorComponent from '../components/soilSensorComponent'
 import SprinklerComponent from '../components/sprinklerComponent'
 import MeshComponent from '../components/mesh'
-import { ConeParticleEmitter, ParticleSystem, Scene, Texture, TransformNode, Vector3, VertexBuffer } from 'babylonjs'
+import { ConeParticleEmitter, GPUParticleSystem, ParticleSystem, Scene, Texture, TransformNode, Vector3, VertexBuffer } from 'babylonjs'
 import { Position } from '../components/position'
 import { WaterSpring } from '../components/waterSpringComponet'
 import { ParticleSysComponent } from '../components/particleSysComponent'
@@ -34,13 +34,13 @@ export default class WateringSystem extends AbstractEntitySystem {
             !system.isActive && system.particles.start();
         }else{
             let system = entity.components.get(ParticleSysComponent);
-            system && system.isActive && system.particles.stop();
+            system && system.isActive && system.particles.stop() && system.particles.dispose();
         }
     }
 
     createSpring(data:WaterSpring){
 
-        const watering = new ParticleSystem("watering", 4000, this._scene);
+        const watering = new GPUParticleSystem("watering",{capacity:2000}, this._scene);
 
         watering.particleTexture = new Texture("assets/systems/flare.png", this._scene); 1
         watering.textureMask = new BABYLON.Color4(1.0, 1.0, 1.0, 1.0);
@@ -52,7 +52,7 @@ export default class WateringSystem extends AbstractEntitySystem {
         //emitter.position = new Vector3(9.8, 10, 9.3)
         emitter.position = data.position;
 
-        emitter.rotation.x = 2.5;
+        emitter.rotation.x = -2.0;
         watering.particleEmitterType = type;
         //@ts-ignore 
         watering.emitter = emitter
@@ -67,7 +67,7 @@ export default class WateringSystem extends AbstractEntitySystem {
         watering.minLifeTime = 0.1;
         watering.maxLifeTime = 1;
 
-        watering.emitRate = 4000;
+        watering.emitRate = 2000;
         watering.color1 = new BABYLON.Color4(0.36, 0.58, 1);
         watering.color2 = new BABYLON.Color4(0.2, 0.5, 1.0, 1.0);
         watering.gravity = new Vector3(0, -2, 0);

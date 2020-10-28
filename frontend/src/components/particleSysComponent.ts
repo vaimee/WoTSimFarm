@@ -1,12 +1,24 @@
 import { Component } from "@trixt0r/ecs";
-import { ParticleSystem, Vector3 } from "babylonjs";
+import { GPUParticleSystem,  Vector3 } from "babylonjs";
 
 export class ParticleSysComponent implements Component {
-    constructor(public particles:ParticleSystem) {
+    private _isActive = false;
+    constructor(public particles:GPUParticleSystem) {
+        const old_stop = particles.stop.bind(particles)
+        const old_start = particles.start.bind(particles)
+        
+        particles.stop = ((component:ParticleSysComponent) => {
+            component._isActive = false;
+            old_stop()
+        }).bind(particles,this)
 
+        particles.start = ((component: ParticleSysComponent) => {
+            component._isActive = true;
+            old_start()
+        }).bind(particles, this)
     }
 
     get isActive(){
-        return this.particles.isStarted() && this.particles.isAlive();
+        return this._isActive
     }
 }
