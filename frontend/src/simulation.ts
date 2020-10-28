@@ -16,7 +16,6 @@ import { WaterSpring } from "./components/waterSpringComponet";
 
 async function discover(runtime:any) {
     const addr = `http://${window.location.hostname}:8080`;
-    console.info("Fetching", addr,"zaapp")
     
     const response = await fetch(addr)
     let things = await response.json()
@@ -47,10 +46,7 @@ async function discover(runtime:any) {
     return result;
 }
 
-export default async function loadSimulation(scene:Scene): Promise<Engine> {
-    
-    var servient = new Wot.Core.Servient({ clientOnly: true });
-    servient.addClientFactory(new Wot.Http.HttpClientFactory());
+export default async function loadSimulation(scene:Scene, servient:any): Promise<Engine> {
     
     const engine = new Engine();
     engine.systems.add(new SoilSensorSystem())
