@@ -22,7 +22,7 @@ configureServientLogging();
 
 export default new Vuex.Store({
     state: {
-        code : "",
+        code : "//WoT Code! Enjoy !!!!",
         codeEnabled : true,
         servient: servient
     },

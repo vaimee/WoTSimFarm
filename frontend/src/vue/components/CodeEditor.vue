@@ -9,7 +9,7 @@ import * as monaco from 'monaco-editor';
 export default class CodeEditor extends Vue {
     mounted() {
         const editor = monaco.editor.create(document.getElementById("editor")!, {
-	        value: '//WoT Code! Enjoy !!!!',
+	        value: store.state.code,
             language: 'typescript',
             theme: "vs",
             renderWhitespace: 'all',
