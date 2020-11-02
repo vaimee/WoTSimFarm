@@ -24,14 +24,12 @@ export default class UISystem extends AbstractEntitySystem {
     onAddedComponents?(entity: AbstractEntity, ...components: Component[]): void {
         
         const selection = components.find(c => c instanceof Selection);
-        console.log(selection);
         
         if (selection) { 
             
             
             const thing = entity.components.get(ThingComponent);
             const mesh = entity.components.get(MeshComponent).mesh;
-            console.log(thing.webThing.getThingDescription());
            
             
            

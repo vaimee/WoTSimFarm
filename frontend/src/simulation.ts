@@ -32,9 +32,6 @@ async function discover(runtime:any) {
         return false;
 
     })
-
-    console.log(thingsIds);
-    
     
     for (const selectedThing of things) {
         const selectedTD = await (await fetch(selectedThing)).json()
@@ -59,7 +56,6 @@ export default async function loadSimulation(scene:Scene, servient:any): Promise
     const runtime =  await servient.start();
 
     const things = await discover(runtime);
-    console.log(things.length);
     
     for (const thing of things) {
         const e = new FarmEntity();

@@ -23,7 +23,6 @@ export default class WateringSystem extends AbstractEntitySystem {
        
         
         if(sprinkler.isActive){
-            console.log("Active!");
             let system = entity.components.get(ParticleSysComponent);
             
             if(!system){

@@ -31,7 +31,6 @@ export class WoTLoadingScreen implements ILoadingScreen {
     }
     
     public hideLoadingUI() {
-        console.log("oka!");
        !this.infiniteState && this.goInfinite()
         this.o?.classList.add("full")
         this.o?.classList.remove("pop", "letter")

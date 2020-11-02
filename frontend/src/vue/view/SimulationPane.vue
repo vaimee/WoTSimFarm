@@ -33,7 +33,6 @@
             if (scene.getMeshByName("cliff_Plane.001")){
                     scene.getMeshByName("cliff_Plane.001")!.checkCollisions = true;
                 }
-
                 let servient = store.getters.servient
                 const simulationEngine = await loadSimulation(scene,servient)
                 const box = MeshBuilder.CreateBox("skyBox", {size:1000 }, scene);
@@ -50,6 +49,7 @@
                 scene.useRightHandedSystem = true;
                 setInterval(()=> simulationEngine.run(),1000)
                 engine.hideLoadingUI();
+                console.clear(); // remove object loading warnings. TODO: remove the warnings propertly
             })
             return scene;
         }
@@ -59,9 +59,6 @@
             this.engine.loadingScreen = new WoTLoadingScreen(document.getElementById("splash"));
             this.engine.displayLoadingUI();
             this.scene = this.createScene(this.engine);
-            this.$on("play",()=>{
-                console.log("servient I choose you")
-            })
             this.engine.runRenderLoop(() => this.scene!.render())
         }
 

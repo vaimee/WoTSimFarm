@@ -40,7 +40,6 @@
   })
   export default class extends Vue { 
     public onClick() {
-      console.log("clicked")
       store.dispatch("toggleCode") 
     }
     public play(){
