@@ -10,7 +10,7 @@ This project is a simple simulation of a digital farm. It can be used as a playg
     - [x] Skybox rendering
     - [x] connect fronted with the simulated web things
     - [ ] add animations
-    - [ ] add a code editor to write user defined scripts
+    - [x] add a code editor to write user defined scripts
     - [ ] add interface for user private simulations
 - Backend
     - [ ] Add unit tests
