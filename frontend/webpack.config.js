@@ -65,6 +65,10 @@ module.exports = {
         }
       },
       {
+        test: /\.d\.ts$/,
+        use: 'raw-loader',
+      },
+      {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
       },
