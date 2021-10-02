@@ -7,7 +7,7 @@ export default class Terrain {
     
     private equations:((input:Vec3)=>number)[];
     private parameters:SechParameters[];
-    private cache:Map<Position,SechParameters>;
+    private cache:Map<number,SechParameters>;
     
     constructor() {
         this.waterContent = 0;
@@ -34,8 +34,8 @@ export default class Terrain {
         let _range = range || 100
         _range = position ? 1 : range;
 
-        if(this.cache.has(position)){
-            const p = this.cache.get(position)
+        if (this.cache.has(positionToMapKey(position))){
+            const p = this.cache.get(positionToMapKey(position))
             p.peak += milliliters;
             //TODO: should we update also the range?
             return;
@@ -52,6 +52,7 @@ export default class Terrain {
         })
         
         this.parameters.push(params)
+        this.cache.set(positionToMapKey(position),params)
     }
     
     public consumeWater(milliliters:number):number{
@@ -80,4 +81,14 @@ export default class Terrain {
             param.peak /= velocity
         }
     }
-} 
+}
+
+function positionToMapKey(position:Position):number {
+    if(!position){
+        return Number.POSITIVE_INFINITY;
+    }
+    const x = position.x ?? 0
+    const y = position.y ?? 0
+    const z = position.z ?? 0
+    return 2**x * 3**y * 5**z;
+}

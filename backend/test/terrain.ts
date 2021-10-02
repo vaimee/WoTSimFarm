@@ -80,4 +80,14 @@ describe('Terrain', () => {
         assert.ok(beforeSampleCenter> afterSample,"No spread")
 
     });
+
+    it('should not add an equation for the same poured point', () => {
+        const terrain = new Terrain()
+        terrain.poorWater(100, { x: 0, y: 0, z: 0 })
+
+        assert.strictEqual(terrain["equations"].length,1);
+        terrain.poorWater(100, { x: 0, y: 0, z: 0 })
+        assert.strictEqual(terrain["equations"].length, 1);
+
+    });
 });
